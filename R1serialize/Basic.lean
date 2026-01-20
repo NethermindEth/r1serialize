@@ -112,8 +112,8 @@ structure R1CSv1 where
   header : Header
   constraints : Constraints
   wireToLabelMap : WireToLabelMap
-  ultraPLONKCustomGateList : ByteArray
-  ultraPLONKCustomGateApplication : ByteArray
+  ultraPLONKCustomGateList : Unit
+  ultraPLONKCustomGateApplication : Unit
 
 def serializeR1CS (path : System.FilePath) (r1cs : R1CSv1) : IO Unit := do
   let h ← IO.FS.Handle.mk path IO.FS.Mode.write

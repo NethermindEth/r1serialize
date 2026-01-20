@@ -38,8 +38,8 @@ private def isZero : R1CSv1 where
   header := header
   constraints := constraints
   wireToLabelMap := wireToLabelMap
-  ultraPLONKCustomGateApplication := .empty
-  ultraPLONKCustomGateList := .empty
+  ultraPLONKCustomGateApplication := ()
+  ultraPLONKCustomGateList := ()
 
 private def debug : IO Unit := do
   let original ← IO.FS.readBinFile "R1CS/isZero.r1cs"

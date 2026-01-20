@@ -28,8 +28,8 @@ private def ex₁ : R1CSv1 where
   header := header₁
   constraints := constraints₁
   wireToLabelMap := wireToLabelMap₁
-  ultraPLONKCustomGateApplication := .empty
-  ultraPLONKCustomGateList := .empty
+  ultraPLONKCustomGateApplication := ()
+  ultraPLONKCustomGateList := ()
 
 private def debug : IO Unit := do
   let original ← IO.FS.readBinFile "R1CS/mul.r1cs"
