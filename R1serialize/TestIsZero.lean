@@ -41,6 +41,10 @@ private def isZero : R1CSv1 where
   ultraPLONKCustomGateApplication := ()
   ultraPLONKCustomGateList := ()
 
+#synth ToString ByteArray
+#check ToString.toString header.toByteArray
+#eval ToString.toString (⟨#[1, 0, 0, 0]⟩ : ByteArray)
+
 private def debug : IO Unit := do
   let original ← IO.FS.readBinFile "R1CS/isZero.r1cs"
   let path := "R1CS/out.r1cs"
@@ -49,6 +53,5 @@ private def debug : IO Unit := do
   IO.println <| "original size: " ++ toString original.size
   IO.println <| "output size: " ++ toString output.size
   IO.println <| original == output
-
 
 #eval debug

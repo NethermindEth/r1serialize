@@ -9,7 +9,7 @@ private def toBytes (n size : ℕ) : List UInt8 :=
     let byte : UInt8 := ⟨n % UInt8.size, Nat.mod_lt _ Nat.ofNat_pos⟩
     byte :: toBytes (n / UInt8.size) size'
 
-private def Nat.toByteArray (n size : ℕ) : ByteArray :=
+def Nat.toByteArray (n size : ℕ) : ByteArray :=
   List.toByteArray (toBytes n size)
 
 example : Nat.toByteArray (size := 0) 123 = ⟨#[]⟩ := by rfl
@@ -19,14 +19,14 @@ example : Nat.toByteArray (size := 3) (2^8-1) = ⟨#[255, 0, 0]⟩ := by rfl
 example : Nat.toByteArray (size := 3) (2^8) = ⟨#[0, 1, 0]⟩ := by rfl
 example : Nat.toByteArray (size := 3) (2^16) = ⟨#[0, 0, 1]⟩ := by rfl
 
-private def UInt32.toByteArray (i : UInt32) : ByteArray := i.toNat.toByteArray 4
+def UInt32.toByteArray (i : UInt32) : ByteArray := i.toNat.toByteArray 4
 
 example : (0 : UInt32).toByteArray = ⟨#[0, 0, 0, 0]⟩ := by rfl
 example : (255 : UInt32).toByteArray = ⟨#[255, 0, 0, 0]⟩ := by rfl
 example : (256 : UInt32).toByteArray = ⟨#[0, 1, 0, 0]⟩ := by rfl
 example : (257 : UInt32).toByteArray = ⟨#[1, 1, 0, 0]⟩ := by rfl
 
-private def UInt64.toByteArray (i : UInt64) : ByteArray := i.toNat.toByteArray 8
+def UInt64.toByteArray (i : UInt64) : ByteArray := i.toNat.toByteArray 8
 
 example : (0 : UInt64).toByteArray = ⟨#[0, 0, 0, 0, 0, 0, 0, 0]⟩ := by rfl
 example : (255 : UInt64).toByteArray = ⟨#[255, 0, 0, 0, 0, 0, 0, 0]⟩ := by rfl
@@ -114,6 +114,10 @@ structure R1CSv1 where
   wireToLabelMap : WireToLabelMap
   ultraPLONKCustomGateList : Unit
   ultraPLONKCustomGateApplication : Unit
+
+-- #eval String.mk
+-- def f (ba : ByteArray) : String :=
+--   ba.foldl (init := "") (· ++ ⟨Nat.toDigits 16 ·.toNat⟩)
 
 def serializeR1CS (path : System.FilePath) (r1cs : R1CSv1) : IO Unit := do
   let h ← IO.FS.Handle.mk path IO.FS.Mode.write

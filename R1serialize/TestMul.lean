@@ -33,13 +33,11 @@ private def ex₁ : R1CSv1 where
 
 private def debug : IO Unit := do
   let original ← IO.FS.readBinFile "R1CS/mul.r1cs"
-  let path := "test.r1cs"
+  let path := "R1CS/out.r1cs"
   serializeR1CS path ex₁
   let output ← IO.FS.readBinFile path
   IO.println <| "original size: " ++ toString original.size
   IO.println <| "output size: " ++ toString output.size
   IO.println <| original == output
-  -- IO.println <| original.extract l r
-  -- IO.println <| output.extract l r
 
 #eval debug
