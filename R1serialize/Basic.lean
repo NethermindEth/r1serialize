@@ -46,6 +46,7 @@ structure Header where
   nPrvIn : UInt32
   nLabels : UInt64
   mConstraints : UInt32
+  deriving Repr, BEq
 
 def Header.size (h : Header) : UInt64 :=
   UInt64.ofNat <| 6 * 4 + h.fieldElemSize.toNat + 8
@@ -70,6 +71,7 @@ structure Constraint where
   termsA : Array (UInt32 × ℕ)
   termsB : Array (UInt32 × ℕ)
   termsC : Array (UInt32 × ℕ)
+  deriving Repr, BEq
 
 def Constraint.size (h : Header) (c : Constraint) : UInt64 :=
   UInt64.ofNat <|
@@ -114,6 +116,7 @@ structure R1CSv1 where
   wireToLabelMap : WireToLabelMap
   ultraPLONKCustomGateList : Unit
   ultraPLONKCustomGateApplication : Unit
+  deriving Repr, BEq
 
 -- #eval String.mk
 -- def f (ba : ByteArray) : String :=
